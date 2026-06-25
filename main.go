@@ -1,6 +1,7 @@
 package main
 
 func main(){
-	repl()
+	conf := &Config{}
+	repl(conf)
 }
 
