@@ -7,7 +7,12 @@ import (
 )
 
 func commandMap(c *Config) error {
-	url := fmt.Sprintf("https://pokeapi.co/api/v2/location-area/?offset=0&limit=20")
+	var url string
+	if c.Next == "" {
+		url = fmt.Sprintf("https://pokeapi.co/api/v2/location-area/?offset=0&limit=20")
+	} else {
+		url = c.Next
+	}
 	res, err := http.Get(url)
 	if err != nil {
 		return fmt.Errorf("The request to the api failed")
@@ -22,6 +27,8 @@ func commandMap(c *Config) error {
 	for i := 0; i < len(location.Results); i++ {
 		fmt.Println(location.Results[i].Name)
 	}
+	c.Next = location.Next
+	c.Previous = location.Previous
 	return nil
 }
 
