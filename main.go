@@ -1,7 +1,13 @@
 package main
 
+import (
+	"time"
+	"github.com/dice2005x3005/Pokedex/internal/pokecache"
+)
+
 func main(){
 	conf := &Config{}
-	repl(conf)
+	cache := pokecache.NewCache(8 * time.Second)
+	repl(conf, cache)
 }
 

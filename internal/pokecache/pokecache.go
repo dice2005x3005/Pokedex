@@ -47,7 +47,7 @@ func (c *Cache) reapLoop(t time.Duration) {
 		if time.Since(v.createdAt) > t {
 			delete(c.entries, k)
 		}
-		c.mu.Unlock()
 	}
+	c.mu.Unlock()
 	}
 }

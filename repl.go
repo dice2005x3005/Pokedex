@@ -5,9 +5,10 @@ import (
 	"bufio"
 	"os"
 	"strings"
+	"github.com/dice2005x3005/Pokedex/internal/pokecache"
 )
 
-func repl(c *Config) {
+func repl(c *Config, cache *pokecache.Cache) {
 	scanner := bufio.NewScanner(os.Stdin)
 	
 	for {
@@ -26,7 +27,7 @@ func repl(c *Config) {
 
 		command, exists := getCommands()[commandName]
 		if exists {
-			err := command.callback(c)
+			err := command.callback(c, cache)
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -49,7 +50,7 @@ func cleanInput(text string) []string {
 type cliCommand struct {
 	name string
 	description string
-	callback func(c* Config) error
+	callback func(c* Config, cache *pokecache.Cache) error
 }
 
 func getCommands() map[string]cliCommand {
