@@ -7,7 +7,10 @@ import (
 
 func main(){
 	conf := &Config{}
+	user := &User{
+		capturas: make(map[string]Pokemon),
+	}
 	cache := pokecache.NewCache(8 * time.Second)
-	repl(conf, cache)
+	repl(conf, cache, user)
 }
 

@@ -8,7 +8,7 @@ import (
 	"io"
 )
 
-func commandExplore(c *Config, cache *pokecache.Cache, loc ...string) error {
+func commandExplore(c *Config, cache *pokecache.Cache, u *User, loc ...string) error {
 	url := fmt.Sprintf("https://pokeapi.co/api/v2/location-area/%s", loc[0])
 	if values, ok := cache.Get(url); ok != true {
 		res, err := http.Get(url)

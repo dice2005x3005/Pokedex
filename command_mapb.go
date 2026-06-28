@@ -8,7 +8,7 @@ import (
 	"github.com/dice2005x3005/Pokedex/internal/pokecache"
 )
 
-func commandMapBack(c *Config, cache *pokecache.Cache, loc ...string) error {
+func commandMapBack(c *Config, cache *pokecache.Cache, u *User, loc ...string) error {
 	if c.Previous == "" {
 		fmt.Println("You are alredy on the first page")
 		return nil

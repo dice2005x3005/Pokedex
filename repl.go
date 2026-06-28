@@ -8,7 +8,7 @@ import (
 	"github.com/dice2005x3005/Pokedex/internal/pokecache"
 )
 
-func repl(c *Config, cache *pokecache.Cache) {
+func repl(c *Config, cache *pokecache.Cache, u *User) {
 	scanner := bufio.NewScanner(os.Stdin)
 	
 	for {
@@ -31,7 +31,7 @@ func repl(c *Config, cache *pokecache.Cache) {
 
 		command, exists := getCommands()[commandName]
 		if exists {
-			err := command.callback(c, cache, loc...)
+			err := command.callback(c, cache, u, loc...)
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -54,7 +54,7 @@ func cleanInput(text string) []string {
 type cliCommand struct {
 	name string
 	description string
-	callback func(c* Config, cache *pokecache.Cache, loc ...string) error
+	callback func(c* Config, cache *pokecache.Cache, u *User, loc ...string) error
 }
 
 func getCommands() map[string]cliCommand {
@@ -83,6 +83,11 @@ func getCommands() map[string]cliCommand {
 			name: "explore",
 			description: "Show the pokemon you can encounter in that location",
 			callback: commandExplore,
+		},
+		"catch": {
+			name: "catch",
+			description: "Let you capture a pokemon by name",
+			callback: commandCatch,
 		},
 	}
 }

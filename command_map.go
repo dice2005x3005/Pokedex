@@ -8,7 +8,7 @@ import (
 	"github.com/dice2005x3005/Pokedex/internal/pokecache"
 )
 
-func commandMap(c *Config, cache *pokecache.Cache, loc ...string) error {
+func commandMap(c *Config, cache *pokecache.Cache, u *User, loc ...string) error {
 	var url string
 	if c.Next == "" {
 		url = fmt.Sprintf("https://pokeapi.co/api/v2/location-area/?offset=0&limit=20")
