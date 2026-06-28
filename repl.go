@@ -24,10 +24,14 @@ func repl(c *Config, cache *pokecache.Cache) {
 			continue
 		}
 		commandName := text[0]
+		loc := []string{}
+		if len(text) > 1 {
+			loc = text[1:]
+		}
 
 		command, exists := getCommands()[commandName]
 		if exists {
-			err := command.callback(c, cache)
+			err := command.callback(c, cache, loc...)
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -50,7 +54,7 @@ func cleanInput(text string) []string {
 type cliCommand struct {
 	name string
 	description string
-	callback func(c* Config, cache *pokecache.Cache) error
+	callback func(c* Config, cache *pokecache.Cache, loc ...string) error
 }
 
 func getCommands() map[string]cliCommand {
@@ -74,6 +78,11 @@ func getCommands() map[string]cliCommand {
 			name: "mapb",
 			description: "Show the previous 20 locations",
 			callback: commandMapBack,
+		},
+		"explore": {
+			name: "explore",
+			description: "Show the pokemon you can encounter in that location",
+			callback: commandExplore,
 		},
 	}
 }
